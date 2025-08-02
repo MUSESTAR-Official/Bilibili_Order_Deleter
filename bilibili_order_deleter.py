@@ -244,8 +244,8 @@ class BilibiliOrderDeleter:
                     print(f"✓ 商品订单 {order_id} 删除成功")
                     return True
                 else:
-                    error_msg = result.get('message', '未知错误')
-                    error_code = result.get('code', 'N/A')
+                    error_msg = result.get('msg', '未知错误')
+                    error_code = result.get('errno', 'N/A')
                     print(f"✗ 商品订单 {order_id} 删除失败: {error_msg}")
                     print(f"   错误代码: {error_code}")
                     print(f"   完整响应: {result}")
@@ -277,8 +277,8 @@ class BilibiliOrderDeleter:
                     print(f"✓ 活动订单 {order_id} 删除成功")
                     return True
                 else:
-                    error_msg = result.get('message', '未知错误')
-                    error_code = result.get('code', 'N/A')
+                    error_msg = result.get('msg', '未知错误')
+                    error_code = result.get('errno', 'N/A')
                     print(f"✗ 活动订单 {order_id} 删除失败: {error_msg}")
                     print(f"   错误代码: {error_code}")
                     print(f"   完整响应: {result}")
