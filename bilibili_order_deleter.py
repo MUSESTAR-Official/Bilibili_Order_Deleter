@@ -224,6 +224,10 @@ class BilibiliOrderDeleter:
         return [i for i, sel in enumerate(selected) if sel]
     
     def delete_order(self, order_id: str, order_data: Dict[str, Any] = None) -> bool:
+        if order_data and order_data.get('order_type') == 9:
+            print(f"✗ 工房订单 {order_id} 删除失败: 暂不支持删除工房订单，请手动删除")
+            return False
+        
         is_mall_order = self.is_mall_order(order_data) if order_data else False
         
         if is_mall_order:
@@ -240,7 +244,11 @@ class BilibiliOrderDeleter:
                     print(f"✓ 商品订单 {order_id} 删除成功")
                     return True
                 else:
-                    print(f"✗ 商品订单 {order_id} 删除失败: {result.get('message', '未知错误')}")
+                    error_msg = result.get('message', '未知错误')
+                    error_code = result.get('code', 'N/A')
+                    print(f"✗ 商品订单 {order_id} 删除失败: {error_msg}")
+                    print(f"   错误代码: {error_code}")
+                    print(f"   完整响应: {result}")
                     return False
                     
             except requests.RequestException as e:
@@ -269,7 +277,11 @@ class BilibiliOrderDeleter:
                     print(f"✓ 活动订单 {order_id} 删除成功")
                     return True
                 else:
-                    print(f"✗ 活动订单 {order_id} 删除失败: {result.get('message', '未知错误')}")
+                    error_msg = result.get('message', '未知错误')
+                    error_code = result.get('code', 'N/A')
+                    print(f"✗ 活动订单 {order_id} 删除失败: {error_msg}")
+                    print(f"   错误代码: {error_code}")
+                    print(f"   完整响应: {result}")
                     return False
                     
             except requests.RequestException as e:
@@ -379,7 +391,7 @@ class BilibiliOrderDeleter:
         
         print("\n确认删除这些订单吗？(Y/N): ", end='', flush=True)
         confirm = input().strip().lower()
-        if confirm != 'Y':
+        if confirm != 'y':
             print("操作已取消")
 
             return
