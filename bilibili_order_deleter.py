@@ -400,16 +400,28 @@ class BilibiliOrderDeleter:
         self.delete_selected_orders(indices)
 
 def main():
-    try:
-        deleter = BilibiliOrderDeleter()
-        deleter.run()
-    except KeyboardInterrupt:
-        print("\n程序已被用户中断")
-    except Exception as e:
-        import traceback
-        print(f"程序运行出错: {e}")
-        print("\n完整错误详情:")
-        print(traceback.format_exc())
+    while True:
+        try:
+            deleter = BilibiliOrderDeleter()
+            deleter.run()
+        except KeyboardInterrupt:
+            print("\n程序已被用户中断")
+        except Exception as e:
+            import traceback
+            print(f"程序运行出错: {e}")
+            print("\n完整错误详情:")
+            print(traceback.format_exc())
+        
+        while True:
+            choice = input("\n退出(T)/重新开始(S): ").strip().upper()
+            if choice == 'T':
+                print("程序已退出")
+                return
+            elif choice == 'S':
+                print("\n重新开始程序...\n")
+                break
+            else:
+                print("请输入 T 或 S")
 
 if __name__ == "__main__":
     main()
