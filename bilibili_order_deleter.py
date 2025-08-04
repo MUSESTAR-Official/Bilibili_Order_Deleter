@@ -3,11 +3,62 @@ import json
 import time
 import sys
 import os
+import re
 from typing import List, Dict, Any
 try:
     import keyboard
 except ImportError:
     keyboard = None
+
+def get_version():
+    try:
+        if hasattr(sys, '_MEIPASS'):
+            base_path = sys._MEIPASS
+        else:
+            base_path = os.path.dirname(os.path.abspath(__file__))
+        
+        version_file = os.path.join(base_path, "version_info.txt")
+        
+        if os.path.exists(version_file):
+            with open(version_file, 'r', encoding='utf-8') as f:
+                content = f.read()
+                match = re.search(r"StringStruct\(u'ProductVersion',\s*u'([^']+)'\)", content)
+                if match:
+                    return match.group(1)
+        
+        return "0.0.0"
+    except Exception as e:
+        return "未知版本"
+
+def show_muse_banner():
+    banner = r"""
+          _____                    _____                    _____                    _____          
+         /\    \                  /\    \                  /\    \                  /\    \         
+        /::\____\                /::\____\                /::\    \                /::\    \        
+       /::::|   |               /:::/    /               /::::\    \              /::::\    \       
+      /:::::|   |              /:::/    /               /::::::\    \            /::::::\    \      
+     /::::::|   |             /:::/    /               /:::/\:::\    \          /:::/\:::\    \     
+    /:::/|::|   |            /:::/    /               /:::/__\:::\    \        /:::/__\:::\    \    
+   /:::/ |::|   |           /:::/    /                \:::\   \:::\    \      /::::\   \:::\    \   
+  /:::/  |::|___|______    /:::/    /      _____    ___\:::\   \:::\    \    /::::::\   \:::\    \  
+ /:::/   |::::::::\    \  /:::/____/      /\    \  /\   \:::\   \:::\    \  /:::/\:::\   \:::\    \ 
+/:::/    |:::::::::\____\|:::|    /      /::\____\/::\   \:::\   \:::\____\/:::/__\:::\   \:::\____\
+\::/    / ~~~~~/:::/    /|:::|____\     /:::/    /\:::\   \:::\   \::/    /\:::\   \:::\   \::/    /
+ \/____/      /:::/    /  \:::\    \   /:::/    /  \:::\   \:::\   \/____/  \:::\   \:::\   \/____/ 
+             /:::/    /    \:::\    \ /:::/    /    \:::\   \:::\    \       \:::\   \:::\    \     
+            /:::/    /      \:::\    /:::/    /      \:::\   \:::\____\       \:::\   \:::\____\    
+           /:::/    /        \:::\__/:::/    /        \:::\  /:::/    /        \:::\   \::/    /    
+          /:::/    /          \::::::::/    /          \:::\/:::/    /          \:::\   \/____/     
+         /:::/    /            \::::::/    /            \::::::/    /            \:::\    \         
+        /:::/    /              \::::/    /              \::::/    /              \:::\____\        
+        \::/    /                \::/____/                \::/    /                \::/    /        
+         \/____/                  ~~                       \/____/                  \/____/                                                                                                        
+    """
+    print(banner)
+    version = get_version()
+    print(f"MUSE-BiliOrder-Deleter v{version}")
+    print("=" * 88)
+    print()
 
 class BilibiliOrderDeleter:
     def __init__(self):
@@ -329,9 +380,10 @@ class BilibiliOrderDeleter:
         print(f"\n删除完成！成功: {success_count}, 失败: {fail_count}")
     
     def run(self):
-        
-        print(f"=== B站会员购订单删除器 ===")
-        print(f"⚠️  注意：请确保您有权限删除这些订单，删除操作不可恢复！")
+        # 显示启动画面
+        show_muse_banner()
+        print()
+        print(f"⚠️注意：请确保您有权限删除这些订单，删除操作不可恢复！")
         print(f"提示：若订单列表显示换行请尝试将窗口拉宽")
         
 
