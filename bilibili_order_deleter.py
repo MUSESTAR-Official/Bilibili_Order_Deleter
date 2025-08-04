@@ -123,7 +123,6 @@ class BilibiliOrderDeleter:
                 
                 print(f"第{page_num + 1}页: 获取到 {len(orders_data)} 个订单")
                 
-                # 如果获取的订单数量小于页面大小，说明已经是最后一页
                 if len(orders_data) < page_size or total_orders >= total_count:
                     break
                 
@@ -162,11 +161,9 @@ class BilibiliOrderDeleter:
             print(f"使用 ↑↓ 键移动，空格键选择/取消选择，Enter确认，ESC退出")
             print("\n" + "═" * 100)
             
-            # 表头
             print(f"{'选择':<6} {'序号':<6} {'订单名':<60} {'订单号':<18} {'状态':<10} {'创建时间':<12}")
             print("─" * 112)
             
-            # 显示订单列表
             start_idx = max(0, current_index - 10)
             end_idx = min(len(self.orders), start_idx + 20)
             
@@ -380,7 +377,6 @@ class BilibiliOrderDeleter:
         print(f"\n删除完成！成功: {success_count}, 失败: {fail_count}")
     
     def run(self):
-        # 显示启动画面
         show_muse_banner()
         print(f"⚠️注意：请确保您有权限删除这些订单，删除操作不可恢复！")
         print(f"提示：若订单列表显示换行请尝试将窗口拉宽")
