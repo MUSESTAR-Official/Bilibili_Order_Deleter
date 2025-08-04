@@ -28,7 +28,7 @@ jobs:
       - name: Build Pyinstaller
         shell: pwsh
         run: |
-          pyinstaller --onefile --windowed --name "Bilibili-Order-Deleter" --version-file version_info.txt bilibili_order_deleter.py
+          pyinstaller --onefile --name "Bilibili-Order-Deleter" --version-file version_info.txt --icon=assets/icon.ico bilibili_order_deleter.py
 
       - name: Upload executable to release
         uses: svenstaro/upload-release-action@v2
