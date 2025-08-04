@@ -17,7 +17,7 @@ pip install -r requirements.txt
 
 1. 运行脚本：
    ```bash
-   python bilibili_order_deleter.py
+   python bilibili_orders_deleter.py
    ```
    （或直接下载Releases中打包好的exe文件）
 

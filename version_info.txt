@@ -30,13 +30,13 @@ VSVersionInfo(
       StringTable(
         u'080404B0',
         [StringStruct(u'CompanyName', u'MUSESTAR'),
-        StringStruct(u'FileDescription', u'MUSE BiliOrder Deleter'),
+        StringStruct(u'FileDescription', u'MUSE BiliOrders Deleter'),
         StringStruct(u'FileVersion', u'1.0.0.0'),
-        StringStruct(u'InternalName', u'MUSE-BiliOrder-Deleter'),
+        StringStruct(u'InternalName', u'MUSE-BiliOrders-Deleter'),
         StringStruct(u'LegalCopyright', u'© 2025 MUSESTAR'),
-        StringStruct(u'OriginalFilename', u'MUSE-BiliOrder-Deleter.exe'),
-        StringStruct(u'ProductName', u'MUSE BiliOrder Deleter'),
-        StringStruct(u'ProductVersion', u'1.1.0')])
+        StringStruct(u'OriginalFilename', u'MUSE-BiliOrders-Deleter.exe'),
+        StringStruct(u'ProductName', u'MUSE BiliOrders Deleter'),
+        StringStruct(u'ProductVersion', u'1.1.1')])
       ]), 
     VarFileInfo([VarStruct(u'Translation', [2052, 1200])])
   ]

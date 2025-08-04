@@ -28,12 +28,12 @@ jobs:
       - name: Build Pyinstaller
         shell: pwsh
         run: |
-          pyinstaller --onefile --name "MUSE-BiliOrder-Deleter" --version-file version_info.txt --icon=assets/icon.ico --add-data "version_info.txt;." bilibili_order_deleter.py
+          pyinstaller --onefile --name "MUSE-BiliOrders-Deleter" --version-file version_info.txt --icon=assets/icon.ico --add-data "version_info.txt;." bilibili_orders_deleter.py
 
       - name: Upload executable to release
         uses: svenstaro/upload-release-action@v2
         with:
-          file: ./dist/MUSE-BiliOrder-Deleter.exe
-          asset_name: MUSE-BiliOrder-Deleter_windows_amd64_${{ github.ref_name }}.exe
+          file: ./dist/MUSE-BiliOrders-Deleter.exe
+          asset_name: MUSE-BiliOrders-Deleter_windows_amd64_${{ github.ref_name }}.exe
           tag: ${{ github.ref }}
           overwrite: true
