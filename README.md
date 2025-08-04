@@ -19,6 +19,7 @@ pip install -r requirements.txt
    ```bash
    python bilibili_order_deleter.py
    ```
+   （或直接下载Releases中打包好的exe文件）
 
 2. 输入您的B站cookies
 
