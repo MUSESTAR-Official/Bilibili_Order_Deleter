@@ -332,6 +332,7 @@ class BilibiliOrderDeleter:
         
         print(f"=== B站会员购订单删除器 ===")
         print(f"⚠️  注意：请确保您有权限删除这些订单，删除操作不可恢复！")
+        print(f"提示：若订单列表显示换行请尝试将窗口拉宽")
         
 
         cookies = input("\n请输入您的B站cookies: ").strip()
