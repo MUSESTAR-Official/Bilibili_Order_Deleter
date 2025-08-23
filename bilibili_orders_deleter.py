@@ -303,8 +303,15 @@ class BiliBiliOrdersDeleter:
                 print(f"✗ 删除商品订单 {order_id} 时网络错误: {e}")
                 return False
             except json.JSONDecodeError as e:
-                print(f"✗ 删除商品订单 {order_id} 时JSON解析错误: {e}")
-                return False
+                # 检查响应状态码，如果是200且内容为空，可能删除成功但响应格式异常
+                if response.status_code == 200 and not response.text.strip():
+                    print(f"✓ 商品订单 {order_id} 删除成功 (响应为空但状态码正常)")
+                    return True
+                else:
+                    print(f"✗ 删除商品订单 {order_id} 时JSON解析错误: {e}")
+                    print(f"   响应状态码: {response.status_code}")
+                    print(f"   响应内容: {response.text[:200]}..." if len(response.text) > 200 else f"   响应内容: {response.text}")
+                    return False
         else:
             url = "https://show.bilibili.com/api/ticket/order/del"
             
@@ -321,12 +328,13 @@ class BiliBiliOrdersDeleter:
                 
                 result = response.json()
                 
-                if result.get('code') == 0:
+                # B站API可能返回code或errno字段表示状态，都为0表示成功
+                if result.get('code') == 0 or result.get('errno') == 0:
                     print(f"✓ 活动订单 {order_id} 删除成功")
                     return True
                 else:
                     error_msg = result.get('msg', '未知错误')
-                    error_code = result.get('errno', 'N/A')
+                    error_code = result.get('errno') or result.get('code', 'N/A')
                     print(f"✗ 活动订单 {order_id} 删除失败: {error_msg}")
                     print(f"   错误代码: {error_code}")
                     print(f"   完整响应: {result}")
@@ -336,8 +344,15 @@ class BiliBiliOrdersDeleter:
                 print(f"✗ 删除活动订单 {order_id} 时网络错误: {e}")
                 return False
             except json.JSONDecodeError as e:
-                print(f"✗ 删除活动订单 {order_id} 时JSON解析错误: {e}")
-                return False
+                # 检查响应状态码，如果是200且内容为空，可能删除成功但响应格式异常
+                if response.status_code == 200 and not response.text.strip():
+                    print(f"✓ 活动订单 {order_id} 删除成功 (响应为空但状态码正常)")
+                    return True
+                else:
+                    print(f"✗ 删除活动订单 {order_id} 时JSON解析错误: {e}")
+                    print(f"   响应状态码: {response.status_code}")
+                    print(f"   响应内容: {response.text[:200]}..." if len(response.text) > 200 else f"   响应内容: {response.text}")
+                    return False
     
     def is_mall_order(self, order_data: Dict[str, Any]) -> bool:
         if not order_data:
